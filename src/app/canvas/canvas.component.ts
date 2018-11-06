@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CanvasAnimation } from './canvasAnimation';
-
+import { WeatherService } from '../weather.service';
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -9,12 +9,13 @@ import { CanvasAnimation } from './canvasAnimation';
 export class CanvasComponent implements OnInit {
 
   title = "test";
-  constructor() {}
+  constructor(private weatherService: WeatherService) {}
 
 
   ngOnInit() {
     const canvas = <HTMLCanvasElement>document.getElementById('canvasId');
-    new CanvasAnimation(canvas);
+
+    new CanvasAnimation(canvas, this.weatherService);
   }
 
 }

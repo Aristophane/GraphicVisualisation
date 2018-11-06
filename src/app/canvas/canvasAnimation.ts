@@ -1,9 +1,9 @@
 import { Coordinates } from './coordinates';
-import { SolarSystem } from './solarSystem';
+import { WeatherService } from '../weather.service';
+import { Weather } from './weather';
 
 export class CanvasAnimation {
     private readonly ctx: CanvasRenderingContext2D;
-    private solarSystem : SolarSystem;
     private i : number = 0;
     private j: number = 0;
     private k: number = 0;
@@ -14,14 +14,19 @@ export class CanvasAnimation {
     private coordinates4: Coordinates = new Coordinates(75, 300);
     private width = 70;
 
-    constructor(private readonly canvas: HTMLCanvasElement) {
+    private weather: Weather;
+
+    constructor(private readonly canvas: HTMLCanvasElement, private weatherService : WeatherService) {
       this.ctx = this.canvas.getContext('2d');
-    //   this.solarSystem = new SolarSystem(this.ctx);
+      setInterval(()=>this.getWeather(),1000);
       window.requestAnimationFrame(() => this.draw());
+    }
+
+    getWeather(): void{
+       this.weatherService.getWeatherJSON().subscribe((data: Weather) => this.weather = { ...data });
     }
   
     draw() {
-    //  this.solarSystem.drawSolarSystem();
         this.drawCircleWithLine(this.coordinates, this.width, this.i);
         this.drawCircleWithLine(this.coordinates2, this.width, this.j);
         this.drawCircleWithLine(this.coordinates3, this.width, this.k);
