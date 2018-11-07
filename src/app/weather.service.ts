@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Weather } from './canvas/weather';
+import { IWeather } from './model/weather';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeatherService {
 
-  private weatherApiUrl = 'api/weather';
+  private weatherApiUrl: string = 'assets/weatherInfoMock.json';
 
   constructor(private http: HttpClient) { }
 
-  getWeatherJSON(){
-    return this.http.get<Weather>(this.weatherApiUrl);
+  getWeatherJSON(): Observable<IWeather>{
+    return this.http.get<IWeather>(this.weatherApiUrl);
   }
-
 }

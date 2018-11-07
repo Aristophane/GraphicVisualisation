@@ -1,6 +1,8 @@
+import { IWeather } from './../model/weather';
 import { Component, OnInit } from '@angular/core';
 import { CanvasAnimation } from './canvasAnimation';
 import { WeatherService } from '../weather.service';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
@@ -8,14 +10,18 @@ import { WeatherService } from '../weather.service';
 })
 export class CanvasComponent implements OnInit {
 
-  title = "test";
   constructor(private weatherService: WeatherService) {}
 
+  public weatherInfos : IWeather;
 
   ngOnInit() {
     const canvas = <HTMLCanvasElement>document.getElementById('canvasId');
+    new CanvasAnimation(canvas);
+    this.getWeather();
+  }
 
-    new CanvasAnimation(canvas, this.weatherService);
+  getWeather(){
+    this.weatherService.getWeatherJSON().subscribe(data => this.weatherInfos = data);
   }
 
 }

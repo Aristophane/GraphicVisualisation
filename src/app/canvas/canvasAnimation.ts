@@ -1,8 +1,9 @@
-import { Coordinates } from './coordinates';
+import { IWeather } from './../model/weather';
+import { OnInit } from '@angular/core';
+import { Coordinates } from '../model/coordinates';
 import { WeatherService } from '../weather.service';
-import { Weather } from './weather';
 
-export class CanvasAnimation {
+export class CanvasAnimation  implements OnInit{
     private readonly ctx: CanvasRenderingContext2D;
     private i : number = 0;
     private j: number = 0;
@@ -14,16 +15,16 @@ export class CanvasAnimation {
     private coordinates4: Coordinates = new Coordinates(75, 300);
     private width = 70;
 
-    private weather: Weather;
+    public weatherInfos : IWeather[];
 
-    constructor(private readonly canvas: HTMLCanvasElement, private weatherService : WeatherService) {
+    constructor(private readonly canvas: HTMLCanvasElement) {
       this.ctx = this.canvas.getContext('2d');
-      setInterval(()=>this.getWeather(),1000);
+    //   setInterval(()=>this.getWeather(),1000);
       window.requestAnimationFrame(() => this.draw());
     }
 
-    getWeather(): void{
-       this.weatherService.getWeatherJSON().subscribe((data: Weather) => this.weather = { ...data });
+    ngOnInit(){
+        
     }
   
     draw() {
