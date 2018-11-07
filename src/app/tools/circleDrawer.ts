@@ -32,6 +32,5 @@ export class CircleDrawer{
         this.ctx.lineTo(0, - width);
         this.ctx.stroke();
         this.ctx.restore();
-
     }
   }
