@@ -1,7 +1,7 @@
 
 <div *ngIf="weatherInfos">
   <h2 >Infos Weather Service</h2>
-  <p *ngIf="weatherInfos.wind">{{weatherInfos.wind.speed}}</p>
+  <p *ngIf="weatherInfos.wind">{{weatherInfos.wind.deg}}</p>
   <p  *ngIf="weatherInfos.name" >{{weatherInfos.name}}</p>
   </div>
 <canvas id="canvasId" class="myCanvas" width="600" height="600">

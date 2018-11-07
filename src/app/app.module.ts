@@ -17,7 +17,7 @@ import { CanvasComponent } from './canvas/canvas.component';
     AppRoutingModule, 
     HttpClientModule
   ],
-  providers: [WeatherService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
