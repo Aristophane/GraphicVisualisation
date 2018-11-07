@@ -4,6 +4,7 @@ import { CircleDrawer } from '../tools/circleDrawer';
 import { WeatherService } from '../weather.service';
 import { GammesUtilities } from '../tools/gammesUtilities';
 import { Gammes } from '../model/gammes';
+import * as Tone from 'tone';
 
 @Component({
   selector: 'app-canvas',
@@ -33,11 +34,28 @@ export class CanvasComponent implements OnInit {
   onComplete(){
     this.drawer.draw(this.weatherInfos.wind.deg);
     this.note = GammesUtilities.findNoteFromAngle(this.gammes, this.weatherInfos.wind.deg);
+
+    var synth = new Tone.Synth({
+			"oscillator" : {
+				"type" : "amtriangle",
+				"harmonicity" : 0.5,
+				"modulationType" : "sine"
+			},
+			"envelope" : {
+				"attackCurve" : 'exponential',
+				"attack" : 0.05,
+				"decay" : 0.2,
+				"sustain" : 0.2,
+				"release" : 1.5,
+			},
+			"portamento" : 0.05
+    }).toMaster();
+
+    synth.triggerAttack(this.note + "3", "2n");
   }
 
   onError()
   {
-
   }
 
 }
