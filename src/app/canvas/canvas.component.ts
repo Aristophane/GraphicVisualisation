@@ -62,7 +62,11 @@ export class CanvasComponent implements AfterViewInit {
       "portamento": 0.05
     }).toMaster();
 
+<<<<<<< HEAD
+    synth.triggerAttack(this.note + "3", "2n");
+=======
     synth.triggerAttack(this.note + "3");
+>>>>>>> 06066a5bfdc486c083f9132f03ac877d312563f2
   }
   
 
