@@ -20,7 +20,7 @@
   "visibility": 10000,
   "wind": {
     "speed": 3.6,
-    "deg": 0
+    "deg": 120
   },
   "clouds": {
     "all": 40

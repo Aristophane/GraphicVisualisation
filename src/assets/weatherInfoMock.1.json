@@ -20,7 +20,7 @@
   "visibility": 10000,
   "wind": {
     "speed": 3.6,
-    "deg": 160
+    "deg": 250
   },
   "clouds": {
     "all": 40
@@ -35,6 +35,6 @@
     "sunset": 1485766550
   },
   "id": 2172797,
-  "name": "Cairns",
+  "name": "London",
   "cod": 200
 }

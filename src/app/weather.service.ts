@@ -8,11 +8,19 @@ import { IWeather } from './model/weather';
 })
 export class WeatherService {
 
-  private weatherApiUrl: string = 'assets/weatherInfoMock.json';
+  private weatherApiUrlMock: string = 'assets/weatherInfoMock.json';
+  private weatherApiUrlMock1: string = 'assets/weatherInfoMock.1.json';
 
   constructor(private http: HttpClient) { }
 
-  getWeatherJSON(): Observable<IWeather>{
-    return this.http.get<IWeather>(this.weatherApiUrl);
+  getWeatherJSON(city: string): Observable<IWeather>{
+
+    if(city == "Cairns")
+    {
+      return this.http.get<IWeather>(this.weatherApiUrlMock);
+    }
+    else{
+      return this.http.get<IWeather>(this.weatherApiUrlMock1); 
+    }
   }
 }

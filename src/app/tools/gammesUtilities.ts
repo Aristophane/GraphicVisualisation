@@ -4,6 +4,7 @@ export class GammesUtilities{
 
     public static findNoteFromAngle(gamme: Gammes, angle: number){
         var previousNoteInScale : string;
+
            for(var [angleKey, noteValue] of gamme.diatoniqueMajeureMap){
                 if(angle == angleKey){
                     console.log("returning Value: " + noteValue);
