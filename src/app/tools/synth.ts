@@ -1,6 +1,4 @@
 import * as Tone from 'tone';
-import { JSONP_ERR_NO_CALLBACK } from '@angular/common/http/src/jsonp';
-import { findReadVarNames } from '@angular/compiler/src/output/output_ast';
 import { newLoop } from './loop';
 
 export class Synth{
@@ -29,9 +27,9 @@ export class Synth{
               "release": 0.1,
             },
             "portamento": 0.01
-        });
-
-        var loop = newLoop(synth, this.filterFrequency);
+        }).toMaster();
+        synth.triggerAttackRelease("C2", "8n", 0);
+        // var loop = newLoop(synth, this.filterFrequency);
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){

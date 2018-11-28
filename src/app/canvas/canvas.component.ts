@@ -16,7 +16,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
 
   @Input() public city : string;
   @Input() public frequency: number;
-  transformation: string = "rotate(15, 150, 150)";
+  transformation: string;
 
   constructor(private weatherService: WeatherService) {
   }
@@ -34,9 +34,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   ngAfterViewInit() {
-    // const circle1Canvas = <HTMLCanvasElement>document.getElementById(this.city);
     this.getWeather(this.city);
-    // this.drawer = new CircleDrawer(circle1Canvas);
   }
 
   getWeather(city: string){
@@ -44,7 +42,6 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   onComplete(){
-    // this.drawer.draw(this.weatherInfos.wind.deg);
     this.note = GammesUtilities.findNoteFromAngle(this.gammes, this.weatherInfos.wind.deg);
     this.synth.playNote(this.note);
     this.transformation = this.getTransformation(this.weatherInfos.wind.deg.toString());
