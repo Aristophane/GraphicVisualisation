@@ -4,28 +4,38 @@ import { CircleDrawer } from '../tools/circleDrawer';
 import { WeatherService } from '../weather.service';
 import { GammesUtilities } from '../tools/gammesUtilities';
 import { Gammes } from '../model/gammes';
+import { Synth } from '../tools/synth';
 import * as Tone from 'tone';
+
+
 
 @Component({
   selector: 'app-canvas',
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.css']
 })
-export class CanvasComponent implements AfterViewInit {
+export class CanvasComponent implements AfterViewInit, OnInit {
 
   @Input() public city : string;
+  @Input() public frequency: number;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(private weatherService: WeatherService) {
+  }
 
   public weatherInfos : IWeather;
   private drawer : CircleDrawer;
   public relatedNote : string;
   gammes = new Gammes();
   public note: string;
+  private synth;
+
+  ngOnInit(){
+    this.synth = new Synth();
+    this.frequency = this.synth.filterFrequency;
+  }
 
   ngAfterViewInit() {
     const circle1Canvas = <HTMLCanvasElement>document.getElementById(this.city);
-    console.log(this.city);
     this.getWeather(this.city);
     this.drawer = new CircleDrawer(circle1Canvas);
   }
@@ -37,37 +47,12 @@ export class CanvasComponent implements AfterViewInit {
   onComplete(){
     this.drawer.draw(this.weatherInfos.wind.deg);
     this.note = GammesUtilities.findNoteFromAngle(this.gammes, this.weatherInfos.wind.deg);
-    this.playNote(this.note);
+    this.synth.playNote(this.note);
   }
 
   onError()
   {
   }
 
-  playNote(note: string)
-  {
-    var synth = new Tone.Synth({
-      "oscillator": {
-        "type": "amtriangle",
-        "harmonicity": 0.5,
-        "modulationType": "sine"
-      },
-      "envelope": {
-        "attackCurve": 'exponential',
-        "attack": 0.05,
-        "decay": 0.2,
-        "sustain": 0.2,
-        "release": 1.5,
-      },
-      "portamento": 0.05
-    }).toMaster();
-
-<<<<<<< HEAD
-    synth.triggerAttack(this.note + "3", "2n");
-=======
-    synth.triggerAttack(this.note + "3");
->>>>>>> 06066a5bfdc486c083f9132f03ac877d312563f2
   }
-  
 
-}
