@@ -27,9 +27,13 @@ export class Synth{
               "release": 0.1,
             },
             "portamento": 0.01
-        }).toMaster();
-        synth.triggerAttackRelease("C2", "8n", 0);
-        // var loop = newLoop(synth, this.filterFrequency);
+        });
+        const filter = new Tone.Filter(100, "lowpass");
+        var lfo = new Tone.LFO("4n", 400, 4000);
+        lfo.connect(filter.frequency);
+        synth.connect(filter);
+        filter.toMaster();
+        synth.triggerAttackRelease("C4", 40, 0.2);
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as Tone from 'tone';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'processingApp';
+  isPlaying: boolean = true;
+
+  mute()
+  {
+    Tone.Master.mute = this.isPlaying;
+    this.isPlaying = !this.isPlaying;
+  }
 }

@@ -1,6 +1,5 @@
 import { IWeather } from './../model/weather';
 import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/core';
-import { CircleDrawer } from '../tools/circleDrawer';
 import { WeatherService } from '../weather.service';
 import { GammesUtilities } from '../tools/gammesUtilities';
 import { Gammes } from '../model/gammes';
@@ -22,7 +21,6 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   public weatherInfos : IWeather;
-  private drawer : CircleDrawer;
   public relatedNote : string;
   gammes = new Gammes();
   public note: string;
@@ -55,6 +53,5 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   {
     return "rotate(" + angle + ", 150, 150)";
   }
-
-  }
+}
 

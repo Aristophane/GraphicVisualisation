@@ -1,5 +1,4 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<!-- <app-canvas [city]="'London'"></app-canvas> -->
-<!-- <app-canvas [city]="'Cairns'"></app-canvas> -->
+
+<button id="muteToggleButton" (click)="mute()" [ngClass]="isPlaying ? 'play': 'mute'"></button>
 <app-canvas [city]="'Cairns'"></app-canvas>
 <router-outlet></router-outlet>

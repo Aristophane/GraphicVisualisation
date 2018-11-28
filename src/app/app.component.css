@@ -1,0 +1,20 @@
+body button, html button {
+    cursor: pointer;
+    border: none;
+}
+
+#muteToggleButton.mute{
+    background-image: url("../assets/mute.svg");
+}
+    
+#muteToggleButton.play{
+    background-image: url("../assets/speaker.svg");
+}
+    
+#muteToggleButton{
+    height: 50px;
+    width: 50px;
+    position: relative;
+    background: transparent;
+    border: none;
+}
