@@ -17,6 +17,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   @Input() public city : string;
   @Input() public frequency: number;
   transformation: string;
+  isPlaying: boolean = true;
 
   constructor(private weatherService: WeatherService) {
   }
@@ -54,6 +55,13 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   getTransformation(angle: string)
   {
     return "rotate(" + angle + ", 150, 150)";
+  }
+
+  mute()
+  {
+    console.log("muted ? " + this.isPlaying);
+    this.synth.mute(this.isPlaying);
+    this.isPlaying = !this.isPlaying;
   }
 
   }

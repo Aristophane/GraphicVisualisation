@@ -10,6 +10,10 @@ export class Synth{
     constructor (){
     }
 
+    mute(value: boolean){
+        Tone.Master.mute = value;
+    }
+
     playNote(note: string)
     {
         Tone.Transport.start();
@@ -28,8 +32,7 @@ export class Synth{
             },
             "portamento": 0.01
         }).toMaster();
-        synth.triggerAttackRelease("C2", "8n", 0);
-        // var loop = newLoop(synth, this.filterFrequency);
+        synth.triggerAttackRelease("C2", 40, 0.2);
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){

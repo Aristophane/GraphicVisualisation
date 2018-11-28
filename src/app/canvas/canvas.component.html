@@ -7,6 +7,8 @@
   <p>Your browser doesn't support canvas. Boo hoo!</p>
 </canvas> -->
 
+ <button id="muteToggleButton" (click)="mute()" [ngClass]="isPlaying ? 'play': 'mute'"></button>
+
 <svg version="1.1" baseProfile="full" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
 <svg:text x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(0,150,150)">C</svg:text>
 <svg:text x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(60,150,150)">D</svg:text>
