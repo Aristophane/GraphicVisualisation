@@ -1,15 +1,5 @@
-#muteToggleButton.mute{
-background-image: url("../../assets/mute.svg");
+.note:hover{
+    stroke: brown;
+    fill: brown;
 }
 
-#muteToggleButton.play{
-    background-image: url("../../assets/speaker.svg");
-}
-
-#muteToggleButton{
-    height: 50px;
-    width: 50px;
-    position: relative;
-    background: transparent;
-    border: none;
-}

@@ -3,6 +3,10 @@ body button, html button {
     border: none;
 }
 
+button:focus {
+  outline: 0;
+}
+
 #muteToggleButton.mute{
     background-image: url("../assets/mute.svg");
 }

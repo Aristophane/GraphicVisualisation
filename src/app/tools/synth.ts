@@ -4,8 +4,10 @@ import { newLoop } from './loop';
 export class Synth{
 
     filter;
+    lfo;
 
     public filterFrequency: number = 500;
+    public lfoFrequency : number = 1;
 
     constructor (){
     }
@@ -33,11 +35,14 @@ export class Synth{
             "portamento": 0.01
         });
         const filter = new Tone.Filter(100, "lowpass");
-        var lfo = new Tone.LFO("4n", 400, 4000);
-        lfo.connect(filter.frequency);
+        this.lfo = new Tone.LFO(2, 500, 4000);
+        // this.frequencySet(this.lfoFrequency);
+        this.lfo.connect(filter.frequency);
+        this.lfo.frequency.linearRampToValueAtTime(8,30);
+        this.lfo.start();
         synth.connect(filter);
         filter.toMaster();
-        synth.triggerAttackRelease("C4", 40, 0.2);
+        synth.triggerAttackRelease("C2", 40, 0.2);
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){
@@ -45,6 +50,12 @@ export class Synth{
          synth.triggerAttackRelease(note, 0.1, start + i / division);
       }
     }
+
+      frequencySet(freq: number){
+        this.lfo.stop();
+          this.lfo.frequency.value = freq;
+          this.lfo.start();
+      }
 }
 
 

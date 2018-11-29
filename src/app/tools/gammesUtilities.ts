@@ -2,10 +2,10 @@ import { Gammes } from "../model/gammes";
 
 export class GammesUtilities{
 
-    public static findNoteFromAngle(gamme: Gammes, angle: number){
+    public static findNoteFromAngle(angle: number){
         var previousNoteInScale : string;
 
-           for(var [angleKey, noteValue] of gamme.diatoniqueMajeureMap){
+        for (var [angleKey, noteValue] of Gammes.diatoniqueMajeureMap){
                 if(angle == angleKey){
                     console.log("returning Value: " + noteValue);
                     return noteValue;

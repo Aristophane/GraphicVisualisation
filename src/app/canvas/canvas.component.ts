@@ -2,7 +2,6 @@ import { IWeather } from './../model/weather';
 import { Component, OnInit, Input, AfterViewInit, HostListener } from '@angular/core';
 import { WeatherService } from '../weather.service';
 import { GammesUtilities } from '../tools/gammesUtilities';
-import { Gammes } from '../model/gammes';
 import { Synth } from '../tools/synth';
 
 @Component({
@@ -14,7 +13,6 @@ import { Synth } from '../tools/synth';
 export class CanvasComponent implements AfterViewInit, OnInit {
 
   @Input() public city : string;
-  @Input() public frequency: number;
   transformation: string;
   isPlaying: boolean = true;
 
@@ -22,14 +20,11 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   public weatherInfos : IWeather;
-  public relatedNote : string;
-  gammes = new Gammes();
   public note: string;
-  private synth;
+  private synth: Synth;
 
   ngOnInit(){
     this.synth = new Synth();
-    this.frequency = this.synth.filterFrequency;
   }
 
   ngAfterViewInit() {
@@ -41,7 +36,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   onComplete(){
-    this.note = GammesUtilities.findNoteFromAngle(this.gammes, this.weatherInfos.wind.deg);
+    this.note = GammesUtilities.findNoteFromAngle(this.weatherInfos.wind.deg);
     this.synth.playNote(this.note);
     this.transformation = this.getTransformation(this.weatherInfos.wind.deg.toString());
   }
@@ -53,6 +48,10 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   getTransformation(angle: string)
   {
     return "rotate(" + angle + ", 150, 150)";
+  }
+
+  action(){
+   this.synth.frequencySet(0.5);
   }
 }
 
