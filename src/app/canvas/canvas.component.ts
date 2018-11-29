@@ -54,17 +54,5 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   {
     return "rotate(" + angle + ", 150, 150)";
   }
-<<<<<<< HEAD
 }
-=======
-
-  mute()
-  {
-    console.log("muted ? " + this.isPlaying);
-    this.synth.mute(this.isPlaying);
-    this.isPlaying = !this.isPlaying;
-  }
-
-  }
->>>>>>> cdfd9bd5d61de7478c4053981c78f3bc7106b9b5
 

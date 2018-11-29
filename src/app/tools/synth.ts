@@ -31,7 +31,6 @@ export class Synth{
               "release": 0.1,
             },
             "portamento": 0.01
-<<<<<<< HEAD
         });
         const filter = new Tone.Filter(100, "lowpass");
         var lfo = new Tone.LFO("4n", 400, 4000);
@@ -39,10 +38,6 @@ export class Synth{
         synth.connect(filter);
         filter.toMaster();
         synth.triggerAttackRelease("C4", 40, 0.2);
-=======
-        }).toMaster();
-        synth.triggerAttackRelease("C2", 40, 0.2);
->>>>>>> cdfd9bd5d61de7478c4053981c78f3bc7106b9b5
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){
