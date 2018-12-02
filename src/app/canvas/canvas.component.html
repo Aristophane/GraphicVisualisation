@@ -1,20 +1,18 @@
 
 <div *ngIf="weatherInfos">
   <p *ngIf="weatherInfos.wind"><span>L'angle du vent est  de {{weatherInfos.wind.deg}}° et la note  est    {{note}}</span></p>
-  <p  *ngIf="weatherInfos.name"  >Ville: {{city}}</p>
   </div>
 
-  <button (click)="action()"></button>
-
-<svg version="1.1" baseProfile="full" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
-  <svg:text class="note"  x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(0,150,150)">C</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(60,150,150)">D</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(120,150,150)">E</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(150,150,150)">F</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(210,150,150)">G</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(270,150,150)">A</svg:text>
-  <svg:text class="note" x="140" y="60" font-family="Verdana" font-size="20" transform="rotate(330,150,150)">B</svg:text>
-  <svg:circle cx="150" cy="150" r="80" fill="transparent" stroke="black" />
-  <svg:polygon points="150,70 155,80, 145,80" fill="red" [attr.transform]="transformation"/>
-  <svg:line x1="150" y1="150" x2="150" y2="80" style="stroke:rgb(255,0,0);stroke-width:2" [attr.transform]="transformation" />
+<svg *ngIf="weatherInfos" version="1.1" baseProfile="full" width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <svg:text *ngIf="weatherInfos.name" id="cityName" x="140" y="130"  font-family="Verdana" style="text-transform: uppercase;" font-size="15">{{city}}</svg:text>
+  <svg:text class="note"  x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(0,150,150)">C</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(60,150,150)">D</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(120,150,150)">E</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(150,150,150)">F</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(210,150,150)">G</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(270,150,150)">A</svg:text>
+  <svg:text class="note" x="140" y="90" font-family="Verdana" font-size="14" transform="rotate(330,150,150)">B</svg:text>
+  <svg:circle cx="150" cy="150" r="80" fill="transparent" stroke="black" stroke-width="3"/>
+  <svg:polygon points="150,70 155,80, 145,80" fill="black" [attr.transform]="arrowAngle"/>
+  <svg:line x1="150" y1="150" x2="150" y2="80" style="stroke:rgb(0, 0, 0); stroke-width:2; stroke-linecap:round" [attr.transform]="arrowAngle" />
 </svg>

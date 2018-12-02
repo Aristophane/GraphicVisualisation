@@ -34,15 +34,16 @@ export class Synth{
             },
             "portamento": 0.01
         });
-        const filter = new Tone.Filter(100, "lowpass");
-        this.lfo = new Tone.LFO(2, 500, 4000);
-        // this.frequencySet(this.lfoFrequency);
+        const filter = new Tone.Filter(3000, "lowpass");
+        this.lfo = new Tone.LFO(2, 200, 4000);
         this.lfo.connect(filter.frequency);
-        this.lfo.frequency.linearRampToValueAtTime(8,30);
+        this.lfo.frequency.linearRampToValueAtTime(8,20);
+        this.lfo.frequency.setValueAtTime(8,20);
+        this.lfo.frequency.linearRampToValueAtTime(2,40);
         this.lfo.start();
         synth.connect(filter);
         filter.toMaster();
-        synth.triggerAttackRelease("C2", 40, 0.2);
+        synth.triggerAttackRelease(note + "3", 40, 0.2);
     }
 
      repeater(synth, repeat: number, note: string, division: number, start: number){

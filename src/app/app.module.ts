@@ -5,11 +5,13 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CanvasComponent } from './canvas/canvas.component';
+import { MusicalRoseComponent } from './musical-rose/musical-rose.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CanvasComponent
+    CanvasComponent,
+    MusicalRoseComponent
   ],
   imports: [
     BrowserModule,
