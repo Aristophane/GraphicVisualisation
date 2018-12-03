@@ -18,7 +18,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   arrowAngle: string;
   isPlaying: boolean = true;
 
-  constructor(private weatherService: WeatherService) {
+  constructor() {
     setInterval(()=> this.windEffect(), 42);
   }
 
@@ -38,7 +38,7 @@ export class CanvasComponent implements AfterViewInit, OnInit {
   }
 
   getWeather(city: string){
-    this.weatherService.getWeatherJSON(city).subscribe(data => this.weatherInfos = data,()=> this.onError(),()=> this.onComplete());
+    // this.weatherService.getWeatherJSON(city).subscribe(data => this.weatherInfos = data,()=> this.onError(),()=> this.onComplete());
   }
 
   onComplete(){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Coordinates } from '../model/coordinates';
 import { Angles } from '../model/angles';
 import { Gammes } from '../model/gammes';
@@ -10,7 +10,7 @@ import { Utilities } from '../tools/utilities';
   templateUrl: './musical-rose.component.html',
   styleUrls: ['./musical-rose.component.css']
 })
-export class MusicalRoseComponent implements OnInit {
+export class MusicalRoseComponent implements OnInit, AfterViewInit {
 
   center: Coordinates;
   size: number;
@@ -22,11 +22,14 @@ export class MusicalRoseComponent implements OnInit {
   constructor() {
     this.size = 320;
     this.center = new Coordinates(this.size/2, this.size/2);
-    setInterval(()=> this.windEffect(), 42);
     this.arrowSize = 100;
    }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(){
+    setInterval(() => this.windEffect(), 42);
   }
 
   triangleRightPoints(size: string)
