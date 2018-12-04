@@ -10,6 +10,17 @@ export class AppComponent {
   title = 'processingApp';
   isPlaying: boolean = true;
 
+  constructor(){
+    setInterval(() => this.updateAngle(), 500)
+  }
+
+  updateAngle(){
+    this.currentAngle = this.currentAngle + 8;
+  }
+
+  currentAngle = 90;
+  
+
   mute()
   {
     Tone.Master.mute = this.isPlaying;

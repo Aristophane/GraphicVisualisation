@@ -1,5 +1,5 @@
 
-<!-- <button id="muteToggleButton" (click)="mute()" [ngClass]="isPlaying ? 'play': 'mute'"></button> -->
+<button id="muteToggleButton" (click)="mute()" [ngClass]="isPlaying ? 'play': 'mute'"></button>
 <!-- <app-canvas [city]="'Cairns'"></app-canvas> -->
-<musical-rose></musical-rose>
+<musical-rose [baseAngle]="currentAngle"></musical-rose>
 <router-outlet></router-outlet>

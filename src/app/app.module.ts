@@ -1,4 +1,4 @@
-import { SoundGeneratorModule } from './sound-generator/sound-generator.module';
+import { MusicalRoseComponent } from './musical-rose/musical-rose.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
@@ -8,13 +8,13 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MusicalRoseComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    HttpClientModule,
-    SoundGeneratorModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

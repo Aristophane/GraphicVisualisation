@@ -18,6 +18,7 @@ export class Synth{
 
     playNote(note: string)
     {
+      console.log("play");
         Tone.Transport.start();
         var synth = new Tone.Synth({
             "oscillator": {
