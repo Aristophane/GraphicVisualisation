@@ -34,6 +34,7 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    this.synth.on();
     setInterval(() => this.windEffect(), 42);
   }
 
@@ -60,13 +61,20 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit {
   note = "C";
 
   windEffect(){
-    var approxWindAngle = this.baseAngle + Utilities.round(Math.random() * 0.5, 2);
+    // var approxWindAngle = this.baseAngle + Utilities.round(Math.random() * 0.5, 2);
 
-    if (this.note != GammesUtilities.findNoteFromAngle(this.baseAngle))
+    var modAngle = this.baseAngle;
+
+    if (this.baseAngle > 360) {
+      modAngle = this.baseAngle % 360;
+    }
+
+    var newNote = GammesUtilities.findNoteFromAngle(modAngle);
+    if (this.note != newNote)
     {
-      this.note = GammesUtilities.findNoteFromAngle(this.baseAngle)    
+      this.note = newNote;   
       this.synth.playNote(this.note);
     }
-    this.arrowAngle = this.getTransform(approxWindAngle.toString());
+    this.arrowAngle = this.getTransform(modAngle.toString());
   }
 }

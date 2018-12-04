@@ -2,20 +2,22 @@ import { Gammes } from "../model/gammes";
 
 export class GammesUtilities{
 
-    public static findNoteFromAngle(angle: number){
-        var previousNoteInScale : string;
+    public static findNoteFromAngle(angle: number) {
+        var modAngle = angle;       
 
-        for (var [angleKey, noteValue] of Gammes.diatoniqueMajeureMap){
-                if(angle == angleKey){
-                    console.log("returning Value: " + noteValue);
-                    return noteValue;
-                }    
-                else if(angle < angleKey)
-                    {
-                        console.log("returning Value: " + previousNoteInScale);
-                        return previousNoteInScale;
-                    }
-                previousNoteInScale = noteValue;
-           }
+        if (angle > 360) {
+            modAngle = angle % 360;
+        }
+
+        var i = Gammes.gammeMajeure.length;
+
+        while(true)
+        {
+            if (modAngle >= Gammes.gammeMajeure[i - 1].angle)
+            {
+                return Gammes.gammeMajeure[i-1].englishName;
+            }
+            i--;
+        }
     }
 }

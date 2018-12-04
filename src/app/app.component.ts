@@ -11,14 +11,19 @@ export class AppComponent {
   isPlaying: boolean = true;
 
   constructor(){
-    setInterval(() => this.updateAngle(), 500)
+    setInterval(() => this.updateAngle1(), 800)
+    setInterval(() => this.updateAngle2(), 400)
   }
 
-  updateAngle(){
-    this.currentAngle = this.currentAngle + 8;
+  updateAngle1(){
+    this.currentAngle1 = Math.random()*360;
+  }
+  updateAngle2() {
+    this.currentAngle2 = this.currentAngle2 + 120;
   }
 
-  currentAngle = 90;
+  currentAngle1 = 0;
+  currentAngle2 = 240;
   
 
   mute()
