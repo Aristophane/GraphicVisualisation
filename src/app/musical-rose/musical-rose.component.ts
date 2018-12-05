@@ -1,19 +1,28 @@
 import { GammesUtilities } from './../tools/gammesUtilities';
 import { Synth } from './../tools/synth';
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { Coordinates } from '../model/coordinates';
 import { Angles } from '../model/angles';
 import { Gammes } from '../model/gammes';
 import { Utilities } from '../tools/utilities';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'musical-rose',
   templateUrl: './musical-rose.component.html',
   styleUrls: ['./musical-rose.component.css']
 })
-export class MusicalRoseComponent implements OnInit, AfterViewInit {
+export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() baseAngle: number;
+  @Input() synth: Synth;
+
+  ngOnChanges(){
+    if(this.synth != undefined)
+    {
+      this.windEffect();
+    }
+  }
 
   center: Coordinates;
   size: number;
@@ -21,21 +30,18 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit {
   notes = Gammes.gammeMajeure;
   arrowAngle: string;
   arrowSize: number;
-  synth: Synth;
 
   constructor() {
     this.size = 320;
     this.center = new Coordinates(this.size/2, this.size/2);
     this.arrowSize = 100;
-    this.synth = new Synth();
-   }
+  }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(){
     this.synth.on();
-    setInterval(() => this.windEffect(), 42);
   }
 
   triangleRightPoints(size: string)
