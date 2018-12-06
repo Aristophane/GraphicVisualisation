@@ -20,5 +20,21 @@ export class Angles{
         {degreeValue: 315, magneticName: "NO"},
         {degreeValue: 337, magneticName: "NNO"}
     ];
-    
+
+    /**
+     * Transform any angle value in its base relative
+     * @param angle in degree
+     * @param base in degree (i.e. 360)
+     */
+    static normalizeAngle(angle: number, base: number){
+        var modAngle = angle;
+
+        if (angle > base || angle < base) {
+          modAngle = Math.abs(angle) % base;
+        }
+        
+        return modAngle;
+    }
+
 }
+    

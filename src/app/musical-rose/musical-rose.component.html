@@ -32,6 +32,16 @@
   <svg:polygon [attr.points]="triangleLeftPoints(73)" [attr.transform]="getTransform(225)" style="fill:rgb(66, 66, 66);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   <svg:polygon [attr.points]="triangleRightPoints(73)" [attr.transform]="getTransform(315)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   <svg:polygon [attr.points]="triangleLeftPoints(73)" [attr.transform]="getTransform(315)" style="fill:rgb(66, 66, 66);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
+  
+  <svg:text *ngFor="let angle of angles" class="degree" [attr.x]="center.x - 4" [attr.y]="center.y - 104" font-family="Verdana" font-size="8" [attr.transform]="getTransform(angle.degreeValue)">{{angle.magneticName}}</svg:text>
+  <svg:text *ngFor="let note of notes" class="degree" [attr.x]="center.x - 4" [attr.y]="center.y - 124" font-family="Verdana" font-size="10" [attr.transform]="getTransform(note.angle)">{{note.englishName}}</svg:text>
+
+  <!-- ARROW -->
+  <svg:line [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - arrowSize" style="stroke:rgb(255, 255, 255); fill:white; stroke-width:1; stroke-linecap:round"
+  [attr.transform]="arrowAngle" />
+  <svg:polygon [attr.points]="arrowHead()" stroke="rgb(2, 26, 49)" stroke-width="1" fill="white" [attr.transform]="arrowAngle" />
+
+  
   <svg:polygon [attr.points]="triangleRightPoints(78)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   <svg:polygon [attr.points]="triangleLeftPoints(78)" style="fill:rgb(66, 66, 66);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   <svg:polygon [attr.points]="triangleRightPoints(78)" [attr.transform]="getTransform(90)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
@@ -41,10 +51,6 @@
   <svg:polygon [attr.points]="triangleRightPoints(78)" [attr.transform]="getTransform(270)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   <svg:polygon [attr.points]="triangleLeftPoints(78)" [attr.transform]="getTransform(270)" style="fill:rgb(66, 66, 66);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
   
-  <!-- ARROW -->
-  <svg:line [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - arrowSize" style="stroke:rgb(255, 255, 255); fill:white; stroke-width:1; stroke-linecap:round"
-  [attr.transform]="arrowAngle" />
-  <svg:polygon [attr.points]="arrowHead()" stroke="rgb(2, 26, 49)" stroke-width="1" fill="white" [attr.transform]="arrowAngle" />
 
   <!-- CENTER -->
   <svg:circle id="circle3" [attr.cx]="center.x" [attr.cy]="center.y" r="16" fill="white" stroke="black" stroke-width="0.8"></svg:circle>
@@ -53,8 +59,4 @@
   <svg:rect id="centerRect" [attr.x]="center.x - 2" [attr.y]="center.y - 2" width="4" height="4" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:0.5;" ></svg:rect>
   <svg:rect id="rightCenterRect" [attr.x]="center.x + 2" [attr.y]="center.y -1" width="80" height="2" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:0.5;" ></svg:rect>
   <svg:rect id="leftCenterRect" [attr.x]="center.x - 2 - 80" [attr.y]="center.y -1" width="80" height="2" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:0.5;" ></svg:rect>
-
-
-  <svg:text *ngFor="let angle of angles" class="degree" [attr.x]="center.x - 4" [attr.y]="center.y - 104" font-family="Verdana" font-size="8" [attr.transform]="getTransform(angle.degreeValue)">{{angle.magneticName}}</svg:text>
-  <svg:text *ngFor="let note of notes" class="degree" [attr.x]="center.x - 4" [attr.y]="center.y - 124" font-family="Verdana" font-size="10" [attr.transform]="getTransform(note.angle)">{{note.englishName}}</svg:text>
 </svg>

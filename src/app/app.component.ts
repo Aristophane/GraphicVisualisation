@@ -1,7 +1,9 @@
-import { Synth } from './tools/synth';
+import { BassSynth } from './tools/bassSynth';
 import { Component, AfterViewInit } from '@angular/core';
 import * as Tone from 'tone';
-import { Observable } from 'rxjs';
+import { GammesUtilities } from './tools/gammesUtilities';
+import { Angles } from './model/angles';
+import { ISynth } from './tools/ISynth';
 
 @Component({
   selector: 'app-root',
@@ -12,31 +14,39 @@ export class AppComponent implements AfterViewInit {
   title = 'processingApp';
   isPlaying: boolean = true;
 
-  oAngle1: Observable<number>;
-  firstSynth: Synth;
-  secondSynth : Synth;
+  firstSynth: BassSynth;
+  // secondSynth : Synth;
+  currentAngle1 = 0;
+  currentAngle2 = 240;
+  note: string = "C";
 
   constructor(){
-    console.log("constructed")
-    this.firstSynth = new Synth(1);
-    this.secondSynth = new Synth(2);
+    this.firstSynth = new BassSynth();
+    this.firstSynth.on();
   }
 
   ngAfterViewInit(){
-    setInterval(() => this.updateAngle1(), 400);
-    setInterval(() => this.updateAngle2(), 200);
+    setInterval(() => this.updateAngle1(), 5000);
+    setInterval(() => console.log(()=>Tone.Transport.tick), 50);
   }
+
+  
 
   updateAngle1(){
-    this.currentAngle1 = Math.random()*360;
-    
-  }
-  updateAngle2() {
-    this.currentAngle2 = this.currentAngle2 + 120;
+    this.currentAngle1 = this.currentAngle1 + 120;
+    this.playAngle(this.currentAngle1, this.firstSynth);
   }
 
-  currentAngle1 = 0;
-  currentAngle2 = 240;
+  playAngle(angle: number, synth: ISynth){
+    var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(angle,360));
+    if (this.note != newNote)
+    {  
+      Tone.Transport.stop();
+      Tone.Transport.start();
+      synth.play(this.note);
+      this.note  = newNote;
+    }
+  }
 
   mute()
   {

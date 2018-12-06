@@ -1,11 +1,8 @@
-import { GammesUtilities } from './../tools/gammesUtilities';
-import { Synth } from './../tools/synth';
 import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { Coordinates } from '../model/coordinates';
 import { Angles } from '../model/angles';
 import { Gammes } from '../model/gammes';
 import { Utilities } from '../tools/utilities';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'musical-rose',
@@ -15,13 +12,9 @@ import { Observable } from 'rxjs';
 export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() baseAngle: number;
-  @Input() synth: Synth;
 
   ngOnChanges(){
-    if(this.synth != undefined)
-    {
-      this.windEffect();
-    }
+      this.moveArrowAngle(this.baseAngle);
   }
 
   center: Coordinates;
@@ -41,18 +34,19 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(){
-    this.synth.on();
   }
 
-  triangleRightPoints(size: string)
+  triangleRightPoints(hauteur: string)
   {
-    var convertedSize = parseInt(size);
-    return Utilities.trianglePoints(this.center.x + 13, this.center.y, this.center.x, this.center.y - convertedSize, this.center.x, this.center.y);
+    var convertedSize = parseInt(hauteur);
+    var baseSize = 13;
+    return Utilities.trianglePoints(this.center.x + baseSize, this.center.y, this.center.x, this.center.y - convertedSize, this.center.x, this.center.y);
   }
 
-  triangleLeftPoints(size: string){
-    var convertedSize = parseInt(size);
-    return Utilities.trianglePoints(this.center.x - 13, this.center.y, this.center.x, this.center.y - convertedSize, this.center.x, this.center.y);
+  triangleLeftPoints(hauteur: string){
+    var convertedSize = parseInt(hauteur);
+    var baseSize = 13;
+    return Utilities.trianglePoints(this.center.x - baseSize, this.center.y, this.center.x, this.center.y - convertedSize, this.center.x, this.center.y);
   }
 
   arrowHead(){
@@ -64,23 +58,8 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
     return "rotate(" + angle + ", "+ this.center.x + "," + this.center.y +")";
   }
 
-  note = "C";
-
-  windEffect(){
+  moveArrowAngle(angle: number){
     // var approxWindAngle = this.baseAngle + Utilities.round(Math.random() * 0.5, 2);
-
-    var modAngle = this.baseAngle;
-
-    if (this.baseAngle > 360) {
-      modAngle = this.baseAngle % 360;
-    }
-
-    var newNote = GammesUtilities.findNoteFromAngle(modAngle);
-    if (this.note != newNote)
-    {
-      this.note = newNote;   
-      this.synth.playNote(this.note);
-    }
-    this.arrowAngle = this.getTransform(modAngle.toString());
+    this.arrowAngle = this.getTransform(angle.toString());
   }
 }
