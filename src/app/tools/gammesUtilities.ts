@@ -9,6 +9,8 @@ export class GammesUtilities{
             modAngle = angle % 360;
         }
 
+        console.log("modAngle: " + modAngle );
+
         var i = Gammes.gammeMajeure.length;
 
         while(true)

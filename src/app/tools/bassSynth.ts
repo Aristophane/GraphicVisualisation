@@ -24,7 +24,7 @@ export class BassSynth implements ISynth{
         },
         "portamento": 0.1
       });
-      var vol = new Tone.Volume(-15);
+      var vol = new Tone.Volume(-20);
       var filter = new Tone.Filter("1300", "lowpass");
       this.synth.chain(filter, vol, Tone.Master);
     }
@@ -36,11 +36,12 @@ export class BassSynth implements ISynth{
     play(note: string)
     {
       console.log(note);
-      Tone.Transport.scheduleRepeat(function(time){()=>
-        this.synth.triggerAttack(this.note + this.pitchValue, time);
-      }, "8n");
+      // Tone.Transport.scheduleRepeat(function(time){()=>
+      //   this.synth.triggerAttack(this.note + this.pitchValue, time);
+      // }, "8n");
       Tone.Transport.start();
-       
+      this.synth.triggerAttackRelease(note + this.pitchValue);
+
       // this.synth.triggerAttackRelease(note + this.pitchValue);
       // this.synth.triggerAttackRelease(note + this.pitchValue+1, 2,3);
       // this.synth.triggerAttackRelease(note + this.pitchValue+2,2, 5);
