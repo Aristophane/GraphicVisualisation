@@ -4,6 +4,7 @@ import * as Tone from 'tone';
 import { GammesUtilities } from './tools/gammesUtilities';
 import { Angles } from './model/angles';
 import { ISynth } from './tools/ISynth';
+import { Gammes } from './model/gammes';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,7 @@ export class AppComponent implements AfterViewInit {
   // secondSynth : Synth;
   currentAngle1 = 0;
   currentAngle12 = 90;
-  currentAngle2 = 240;
-  note: string = "C";
+  note: string = "B";
 
   constructor(){
     this.firstSynth = new BassSynth();
@@ -30,16 +30,16 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(){
-    setInterval(() => this.updateAngle1(), 100);
+    setInterval(() => this.updateAngle1(), 2000);
   }
 
   
 
   updateAngle1(){
     this.currentAngle1 = this.currentAngle1 + 10;
-    this.currentAngle12 = this.currentAngle12 + 10;
+    // this.currentAngle12 = this.currentAngle12 + 10;
     this.playAngle(this.currentAngle1, this.firstSynth);
-    this.playAngle(this.currentAngle12, this.firstSynth2);
+    // this.playAngle(this.currentAngle12, this.firstSynth2);
   }
 
   playAngle(angle: number, synth: ISynth){
@@ -47,12 +47,13 @@ export class AppComponent implements AfterViewInit {
 
     if (this.note != newNote)
     {  
+      Tone.Transport.bpm.value = 120;
       Tone.Transport.stop();
       Tone.Transport.start();
-      console.log("angle " +angle);
-      console.log("note " + newNote);
-
-      synth.play(newNote);
+      console.log(newNote);
+      var notePosition = GammesUtilities.findNotePositionFromEnglishName(newNote, Gammes.gammeMajeure);
+      Tone.Transport.schedule((time) => {synth.play(Gammes.gammeMajeure[notePosition].englishName)}, "0:0:2");
+      Tone.Transport.schedule((time) => {synth.play(Gammes.gammeMajeure[notePosition + 2].englishName)}, "0:2:0");
       this.note  = newNote;
     }
   }

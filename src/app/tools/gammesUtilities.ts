@@ -1,4 +1,5 @@
 import { Gammes } from "../model/gammes";
+import { Note } from "../model/note";
 
 export class GammesUtilities{
 
@@ -21,5 +22,27 @@ export class GammesUtilities{
             }
             i--;
         }
+    }
+
+    public static findNoteFromEnglishName(englishName: string, gamme: Note[]){
+        for(var i = 0; i < gamme.length; i++){
+            if(gamme[i].englishName == englishName)
+            {
+                return gamme[i];
+            }
+        }
+
+        return null;
+    }
+
+    public static findNotePositionFromEnglishName(englishName: string, gamme: Note[]){
+        for(var i = 0; i < gamme.length; i++){
+            if(gamme[i].englishName == englishName)
+            {
+                return i;
+            }
+        }
+
+        return null;
     }
 }

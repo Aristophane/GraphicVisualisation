@@ -34,18 +34,8 @@ export class BassSynth implements ISynth{
     }
 
     play(note: string)
-    {
-      console.log(note);
-      // Tone.Transport.scheduleRepeat(function(time){()=>
-      //   this.synth.triggerAttack(this.note + this.pitchValue, time);
-      // }, "8n");
-      Tone.Transport.start();
-      this.synth.triggerAttackRelease(note + this.pitchValue);
-
-      // this.synth.triggerAttackRelease(note + this.pitchValue);
-      // this.synth.triggerAttackRelease(note + this.pitchValue+1, 2,3);
-      // this.synth.triggerAttackRelease(note + this.pitchValue+2,2, 5);
-      // this.synth.triggerAttackRelease(note + this.pitchValue+1,15, 7);
+    { 
+      this.synth.triggerAttackRelease(note + this.pitchValue, 0.5);
     }
 
     
