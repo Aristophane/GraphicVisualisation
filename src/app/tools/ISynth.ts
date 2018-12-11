@@ -1,10 +1,11 @@
+import { Melody } from './../model/melody';
 import * as Tone from 'tone';
+import { Note } from '../model/note';
 
 export interface ISynth{
     on();
     off();
     synth: any;
     play(note: string);
-    // setFilterFrequency();
-    // setLFORate();
+    playMelody(startingNotePosition: number, melody: Melody, gamme: Note[]);
 }

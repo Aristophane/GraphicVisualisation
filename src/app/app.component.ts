@@ -1,3 +1,4 @@
+import { Melody } from './model/melody';
 import { BassSynth } from './tools/bassSynth';
 import { Component, AfterViewInit } from '@angular/core';
 import * as Tone from 'tone';
@@ -6,6 +7,7 @@ import { Angles } from './model/angles';
 import { ISynth } from './tools/ISynth';
 import { Gammes } from './model/gammes';
 import { Note } from './model/note';
+import { MelodyNote } from './model/melodyNote';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,7 @@ export class AppComponent implements AfterViewInit {
   title = 'processingApp';
   isPlaying: boolean = true;
   firstSynth: BassSynth;
-  currentAngle1 = 0;
+  currentAngle1 = 350;
   note = "C";
   gamme = Gammes.gammeMineure;
 
@@ -27,33 +29,34 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit(){
     setInterval(() => this.updateAngle1(), 1000);
-    
-    // Tone.Transport.start();
-    // Tone.Transport.scheduleRepeat((time)=> this.updateAngle1(), "1m");
   }
 
   updateAngle1(){
-    this.currentAngle1 = this.currentAngle1 + 110;
+    this.currentAngle1 = this.currentAngle1 + 1;
     this.playAngle(this.currentAngle1, this.firstSynth, this.gamme);
   }
 
   playAngle(angle: number, synth: ISynth, gamme: Note[]){
+
     var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(angle,360), this.gamme);
+
     if (this.note != newNote.englishName)
     {  
       Tone.Transport.cancel("0:0:1");
-      Tone.Transport.bpm.value = 140;
+      Tone.Transport.bpm.value = 130;
       Tone.Transport.stop();
       Tone.Transport.start();
       var notePosition = gamme.indexOf(newNote);
-      var note1 = GammesUtilities.getEnglishNoteName(gamme, notePosition,4);
-      var note2 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 1,4);
-      var note3 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 2,4);
-      var note4 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 3,4);
-      Tone.Transport.schedule((time) => {synth.play(note1)}, "0:0:2");
-      Tone.Transport.schedule((time) => {synth.play(note2)}, "0:1:0");
-      Tone.Transport.schedule((time) => {synth.play(note3)}, "0:1:2");
-      Tone.Transport.schedule((time) => {synth.play(note4)}, "0:2:0");
+      var melody = new Melody();
+      melody.notes = [
+        { positionInScale: 0, startTime: "0:0:2" , duration: 0.2.toString()},
+        { positionInScale: 3, startTime: "0:1:0" , duration: 0.2.toString()},
+        { positionInScale: 3, startTime: "0:1:2" , duration: 0.1.toString()},
+        { positionInScale: 5, startTime: "0:2:0" , duration: 0.2.toString()},
+        { positionInScale: 5, startTime: "0:2:2" , duration: 0.2.toString()},
+        { positionInScale: 6, startTime: "0:3:0" , duration: 0.8.toString()},
+    ];
+      synth.playMelody(notePosition, melody, gamme);
       this.note = newNote.englishName;
     }
   }

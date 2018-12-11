@@ -1,5 +1,8 @@
+import { GammesUtilities } from './gammesUtilities';
 import * as Tone from 'tone';
 import { ISynth } from './ISynth';
+import { Melody } from '../model/melody';
+import { Note } from '../model/note';
 
 export class BassSynth implements ISynth{
 
@@ -34,7 +37,17 @@ export class BassSynth implements ISynth{
     play(note: string)
     { 
       console.log(note);
-      this.synth.triggerAttackRelease(note, 0.2);
+      Tone.Transport.schedule((time) => { this.synth.triggerAttackRelease(note, 0.2); }, "0:0:2");
+      Tone.Transport.schedule((time) => { this.synth.triggerAttackRelease(note, 0.2); }, "0:1:0");
+      
+    }
+
+    playMelody(startingNotePosition: number, melody: Melody, gamme: Note[]){
+      melody.notes.forEach((element) => {
+        var note = GammesUtilities.getEnglishNoteName(gamme, startingNotePosition + element.positionInScale, 3);
+        console.log(note);
+        Tone.Transport.schedule((time) => { this.synth.triggerAttackRelease(note, element.duration)}, element.startTime);
+      });
     }
 
     
