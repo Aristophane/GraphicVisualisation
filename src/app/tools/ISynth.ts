@@ -1,5 +1,4 @@
 import { Melody } from './../model/melody';
-import * as Tone from 'tone';
 import { Note } from '../model/note';
 
 export interface ISynth{

@@ -7,7 +7,6 @@ import { Angles } from './model/angles';
 import { ISynth } from './tools/ISynth';
 import { Gammes } from './model/gammes';
 import { Note } from './model/note';
-import { MelodyNote } from './model/melodyNote';
 
 @Component({
   selector: 'app-root',
@@ -18,9 +17,9 @@ export class AppComponent implements AfterViewInit {
   title = 'processingApp';
   isPlaying: boolean = true;
   firstSynth: BassSynth;
-  currentAngle1 = 350;
+  currentAngle1 = 0;
   note = "C";
-  gamme = Gammes.gammeMineure;
+  gamme = Gammes.gammePentaEgyptienne;
 
   constructor(){
     this.firstSynth = new BassSynth();
@@ -28,7 +27,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(){
-    setInterval(() => this.updateAngle1(), 1000);
+    setInterval(() => this.updateAngle1(), 5);
   }
 
   updateAngle1(){

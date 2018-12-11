@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, Input, OnChanges } from '@angular/core';
 import { Coordinates } from '../model/coordinates';
 import { Angles } from '../model/angles';
-import { Gammes } from '../model/gammes';
 import { Utilities } from '../tools/utilities';
 import { Note } from '../model/note';
 
