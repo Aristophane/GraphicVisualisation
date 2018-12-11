@@ -3,6 +3,7 @@ import { Coordinates } from '../model/coordinates';
 import { Angles } from '../model/angles';
 import { Gammes } from '../model/gammes';
 import { Utilities } from '../tools/utilities';
+import { Note } from '../model/note';
 
 @Component({
   selector: 'musical-rose',
@@ -12,6 +13,7 @@ import { Utilities } from '../tools/utilities';
 export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() baseAngle: number;
+  @Input() notes: Note[];
 
   ngOnChanges(){
       this.moveArrowAngle(this.baseAngle);
@@ -20,7 +22,6 @@ export class MusicalRoseComponent implements OnInit, AfterViewInit, OnChanges {
   center: Coordinates;
   size: number;
   angles = Angles.windRoseAngles;
-  notes = Gammes.gammeMajeure;
   arrowAngle: string;
   arrowSize: number;
 

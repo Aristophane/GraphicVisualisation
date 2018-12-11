@@ -6,7 +6,6 @@ export class BassSynth implements ISynth{
     lfo;
     synth;
     synthType;
-    pitchValue = "4";
 
     on(){
       this.synth = new Tone.Synth({
@@ -17,25 +16,25 @@ export class BassSynth implements ISynth{
         },
         "envelope": {
           "attackCurve": 'exponential',
-          "attack": 0.2,
+          "attack": 0.1,
           "decay": 0.2,
-          "sustain": 0.1,
-          "release": 0.1
+          "sustain": 0.3,
+          "release": 0.5
         },
-        "portamento": 0.1
+        "portamento": 0.01
       });
       var vol = new Tone.Volume(-20);
-      var filter = new Tone.Filter("1300", "lowpass");
+      var filter = new Tone.Filter("500", "lowpass");
       this.synth.chain(filter, vol, Tone.Master);
     }
 
     off(){
-      Tone.Transport.stop();
     }
 
     play(note: string)
     { 
-      this.synth.triggerAttackRelease(note + this.pitchValue, 0.5);
+      console.log(note);
+      this.synth.triggerAttackRelease(note, 0.2);
     }
 
     

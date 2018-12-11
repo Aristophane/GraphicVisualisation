@@ -1,24 +1,40 @@
-import { Gammes } from "../model/gammes";
 import { Note } from "../model/note";
 
 export class GammesUtilities{
 
-    public static findNoteFromAngle(angle: number) {
+    public static findNoteFromAngle(angle: number, gamme: Note[]) {
         var modAngle = angle;       
 
         if (angle > 360) {
             modAngle = angle % 360;
         }
 
-        console.log("modAngle: " + modAngle );
-
-        var i = Gammes.gammeMajeure.length;
+        var i = gamme.length;
 
         while(true)
         {
-            if (modAngle >= Gammes.gammeMajeure[i - 1].angle)
+            if (modAngle >= gamme[i - 1].angle)
             {
-                return Gammes.gammeMajeure[i-1].englishName;
+                return gamme[i-1];
+            }
+            i--;
+        }
+    }
+
+    public static findNoteEnglishNameFromAngle(angle: number, gamme: Note[]) {
+        var modAngle = angle;       
+
+        if (angle > 360) {
+            modAngle = angle % 360;
+        }
+
+        var i = gamme.length;
+
+        while(true)
+        {
+            if (modAngle >= gamme[i - 1].angle)
+            {
+                return gamme[i-1].englishName;
             }
             i--;
         }
@@ -45,4 +61,21 @@ export class GammesUtilities{
 
         return null;
     }
+
+    public static getEnglishNoteName(gamme: Note[], position: number, pitch: number){
+        if(position > gamme.length - 1){
+          var modulatedPosition = position % gamme.length;
+          return gamme[modulatedPosition].englishName + (pitch + 1).toString();
+        }
+        else if(Math.abs(position) == gamme.length){
+          return gamme[0].englishName + (pitch - 1).toString();
+        }
+        else if(position < 0){
+          var modulatedPosition = gamme.length + position % gamme.length;
+          return gamme[modulatedPosition].englishName + (pitch - 1).toString();
+        }
+        else{
+          return gamme[position].englishName + (pitch).toString();
+        }
+      }
 }

@@ -5,6 +5,7 @@ import { GammesUtilities } from './tools/gammesUtilities';
 import { Angles } from './model/angles';
 import { ISynth } from './tools/ISynth';
 import { Gammes } from './model/gammes';
+import { Note } from './model/note';
 
 @Component({
   selector: 'app-root',
@@ -14,52 +15,50 @@ import { Gammes } from './model/gammes';
 export class AppComponent implements AfterViewInit {
   title = 'processingApp';
   isPlaying: boolean = true;
-
   firstSynth: BassSynth;
-  firstSynth2: BassSynth;
-  // secondSynth : Synth;
   currentAngle1 = 0;
-  currentAngle12 = 90;
-  note: string = "B";
+  note = "C";
+  gamme = Gammes.gammeMineure;
 
   constructor(){
     this.firstSynth = new BassSynth();
-    this.firstSynth2 = new BassSynth();
     this.firstSynth.on();
-    this.firstSynth2.on();
   }
 
   ngAfterViewInit(){
-    setInterval(() => this.updateAngle1(), 2000);
+    setInterval(() => this.updateAngle1(), 1000);
+    
+    // Tone.Transport.start();
+    // Tone.Transport.scheduleRepeat((time)=> this.updateAngle1(), "1m");
   }
-
-  
 
   updateAngle1(){
-    this.currentAngle1 = this.currentAngle1 + 10;
-    // this.currentAngle12 = this.currentAngle12 + 10;
-    this.playAngle(this.currentAngle1, this.firstSynth);
-    // this.playAngle(this.currentAngle12, this.firstSynth2);
+    this.currentAngle1 = this.currentAngle1 + 110;
+    this.playAngle(this.currentAngle1, this.firstSynth, this.gamme);
   }
 
-  playAngle(angle: number, synth: ISynth){
-    var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(angle,360));
-
-    if (this.note != newNote)
+  playAngle(angle: number, synth: ISynth, gamme: Note[]){
+    var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(angle,360), this.gamme);
+    if (this.note != newNote.englishName)
     {  
-      Tone.Transport.bpm.value = 120;
+      Tone.Transport.cancel("0:0:1");
+      Tone.Transport.bpm.value = 140;
       Tone.Transport.stop();
       Tone.Transport.start();
-      console.log(newNote);
-      var notePosition = GammesUtilities.findNotePositionFromEnglishName(newNote, Gammes.gammeMajeure);
-      Tone.Transport.schedule((time) => {synth.play(Gammes.gammeMajeure[notePosition].englishName)}, "0:0:2");
-      Tone.Transport.schedule((time) => {synth.play(Gammes.gammeMajeure[notePosition + 2].englishName)}, "0:2:0");
-      this.note  = newNote;
+      var notePosition = gamme.indexOf(newNote);
+      var note1 = GammesUtilities.getEnglishNoteName(gamme, notePosition,4);
+      var note2 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 1,4);
+      var note3 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 2,4);
+      var note4 = GammesUtilities.getEnglishNoteName(gamme, notePosition + 3,4);
+      Tone.Transport.schedule((time) => {synth.play(note1)}, "0:0:2");
+      Tone.Transport.schedule((time) => {synth.play(note2)}, "0:1:0");
+      Tone.Transport.schedule((time) => {synth.play(note3)}, "0:1:2");
+      Tone.Transport.schedule((time) => {synth.play(note4)}, "0:2:0");
+      this.note = newNote.englishName;
     }
   }
 
-  mute()
-  {
+  mute(){
     Tone.Master.mute = this.isPlaying;
     this.isPlaying = !this.isPlaying;
   }
