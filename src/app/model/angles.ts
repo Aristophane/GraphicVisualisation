@@ -26,7 +26,7 @@ export class Angles{
      * @param angle in degree
      * @param base in degree (i.e. 360)
      */
-    static normalizeAngle(angle: number, base: number){
+    public static normalizeAngle(angle: number, base: number){
         var modAngle = angle;
 
         if (angle > base || angle < base) {

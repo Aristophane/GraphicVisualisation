@@ -9,6 +9,12 @@ export class BassSynth implements ISynth{
     lfo;
     synth;
     synthType;
+    pitch
+
+    constructor(_pitch: number)
+    {
+      this.pitch = _pitch;
+    }
 
     on(){
       this.synth = new Tone.Synth({
@@ -29,6 +35,7 @@ export class BassSynth implements ISynth{
       var vol = new Tone.Volume(-20);
       var filter = new Tone.Filter("500", "lowpass");
       this.synth.chain(filter, vol, Tone.Master);
+      console.log(this.synth);
     }
 
     off(){
@@ -43,10 +50,13 @@ export class BassSynth implements ISynth{
     }
 
     playMelody(startingNotePosition: number, melody: Melody, gamme: Note[]){
+      var time = Tone.now();
+      var computingDelay = Tone.Time("0:0:01").toSeconds();
       melody.notes.forEach((element) => {
-        var note = GammesUtilities.getEnglishNoteName(gamme, startingNotePosition + element.positionInScale, 3);
-        console.log(note);
-        Tone.Transport.schedule((time) => { this.synth.triggerAttackRelease(note, element.duration)}, element.startTime);
+        var startTimeInSecond = Tone.Time(element.startTime).toSeconds();
+        var definitiveTime = time + computingDelay + startTimeInSecond;
+        var note = GammesUtilities.getEnglishNoteName(gamme, startingNotePosition + element.positionInScale, this.pitch);
+        Tone.Transport.schedule((time) => { this.synth.triggerAttackRelease(note, element.duration) }, definitiveTime);
       });
     }
 
