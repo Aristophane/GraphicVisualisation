@@ -4,9 +4,7 @@ import { Component, AfterViewInit, Input } from '@angular/core';
 import * as Tone from 'tone';
 import { GammesUtilities } from './tools/gammesUtilities';
 import { Angles } from './model/angles';
-import { ISynth } from './tools/ISynth';
 import { Gammes } from './model/gammes';
-import { Note } from './model/note';
 import { Notes } from './model/notes';
 
 @Component({
@@ -17,11 +15,9 @@ import { Notes } from './model/notes';
 export class AppComponent implements AfterViewInit {
   title = 'processingApp';
   isPlaying: boolean = true;
-  firstSynth: BassSynth;
-  secondSynth: BassSynth;
   currentAngle1 = 1;
   currentAngle2 = 61;
-  note = Notes.B;
+  note = Notes.C;
   gamme = Gammes.gammePentaEgyptienne;
   melody1: Melody;
   synths;
@@ -32,62 +28,58 @@ export class AppComponent implements AfterViewInit {
 
     this.melody1 = new Melody();
     this.melody1.notes = [
-      { positionInScale: 0, startTime: "0:0:2", duration: 0.2.toString() },
-      { positionInScale: 0, startTime: "0:1:0", duration: 0.2.toString() },
-      { positionInScale: 5, startTime: "0:1:2", duration: 0.1.toString() },
-      { positionInScale: 5, startTime: "0:2:0", duration: 0.2.toString() },
-      { positionInScale: 3, startTime: "0:2:2", duration: 0.2.toString() },
-      { positionInScale: 2, startTime: "0:3:0", duration: 0.8.toString() },
+      { positionInScale: 0, startTime: "0:0:2", duration: "0:0:1" },
+      { positionInScale: 0, startTime: "0:1:0", duration: "0:0:1" },
+      { positionInScale: 5, startTime: "0:1:2", duration: "0:0:2" },
+      { positionInScale: 5, startTime: "0:2:0", duration: "0:0:1" },
+      { positionInScale: 3, startTime: "0:2:2", duration: "0:0:1" },
+      { positionInScale: 2, startTime: "0:3:0", duration: "0:0:1" },
+      { positionInScale: 4, startTime: "0:4:0", duration: "0:0:3" }
     ];
 
+    Tone.Transport.bpm.value = 120;
+
+    var totalMelodyTime = Tone.Time(this.melody1.notes[this.melody1.notes.length - 1].startTime).toSeconds() + Tone.Time(this.melody1.notes[this.melody1.notes.length - 1].duration).toSeconds();
     this._loadSynths();
 
+    Tone.Transport.scheduleRepeat((time) =>{
 
-
-    Tone.Transport.scheduleRepeat((time) => {
-      if(!this.isBassOn){
-      this.isBassOn = true;
-      var notePosition = this.gamme.indexOf(this.note);
-      this.synths.bass.triggerAttack(this.note.englishName + "2", time);
-      }
       var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(this.currentAngle1, 360), this.gamme);
 
-      if (this.note.englishName != newNote.englishName) {
-        this.synths.bass.triggerRelease(time);
-        var notePosition = this.gamme.indexOf(newNote);
+      if(this.note != newNote)
+      {
         this.note = newNote;
-        this.isBassOn = false;
       }
 
-      console.log(this.note);
+      var notePosition = this.gamme.indexOf(this.note);
 
-      console.log(time);
+      this.melody1.notes.forEach((note)=>{
+        //SCHEDULE ATTACKS
+        Tone.Transport.schedule((time2) => {
+          var noteComputed = GammesUtilities.getEnglishNoteName(this.gamme, notePosition + note.positionInScale, 2);
+          this.synths.bass.triggerAttack(noteComputed);
+        }, time + Tone.Time(note.startTime).toSeconds());
 
-    }, '16n');
+        //SCHEDULE RELEASES
+        Tone.Transport.schedule((time2) => {
+          this.synths.bass.triggerRelease(time2);
+        }, time + Tone.Time(note.startTime).toSeconds() + Tone.Time(note.duration).toSeconds());
+      })
+    }, totalMelodyTime);
   }
 
   channel;
   fx;
-
+  scheduler: number = 0;
 
   ngAfterViewInit(){
-     setInterval(() => this.updateAngle1(), 20);
+     setInterval(() => this.updateAngle1(), 200);
      Tone.Transport.start();
   }
 
   updateAngle1() {
     this.currentAngle1 = this.currentAngle1 + 1;
   }
-
-  // playAngle(angle: number, synth: ISynth, gamme: Note[], melody: Melody){
-  //   var newNote = GammesUtilities.findNoteFromAngle(Angles.normalizeAngle(angle,360), this.gamme);
-  //   if (this.note != newNote.englishName)
-  //   {  
-  //     var notePosition = gamme.indexOf(newNote);
-  //     synth.playMelody(notePosition, melody, gamme);
-  //     this.note = newNote.englishName;
-  //   }
-  // }
 
   mute(){
     Tone.Master.mute = this.isPlaying;
@@ -96,9 +88,9 @@ export class AppComponent implements AfterViewInit {
 
   _loadSynths() {
     this.channel = {
-      master: new Tone.Gain(0.7),
-      treb: new Tone.Gain(0.7),
-      bass: new Tone.Gain(0.8),
+      master: new Tone.Gain(0.2),
+      treb: new Tone.Gain(0.2),
+      bass: new Tone.Gain(0.4),
     };
     this.fx = {
       distortion: new Tone.Distortion(0.8),
