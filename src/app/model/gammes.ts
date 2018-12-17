@@ -13,7 +13,17 @@ export class Gammes{
         Notes.B
     ];
 
-    public static gammeMineure : Note[] = [
+    public static gammeMineureNaturelle : Note[] = [
+        Notes.C,
+        Notes.D,
+        Notes.Eb,
+        Notes.F,
+        Notes.G,
+        Notes.Ab,
+        Notes.Bb
+    ];
+
+    public static gammeMineureHarmonique : Note[] = [
         Notes.C,
         Notes.D,
         Notes.Eb,
