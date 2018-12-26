@@ -5,6 +5,7 @@ import { GammesUtilities } from './tools/gammesUtilities';
 import { Angles } from './model/angles';
 import { Gammes } from './model/gammes';
 import { Notes } from './model/notes';
+import * as MidiConvert from 'midiconvert';
 
 @Component({
   selector: 'app-root',
@@ -24,23 +25,45 @@ export class AppComponent implements AfterViewInit {
   pairTest: number = 0;
 
   ngAfterViewInit() {
-    this.loadMelodies();
-    this.loadTransport();
+    // this.loadMelodies();
+    // this.loadTransport();
+
+    MidiConvert.load("../assets/pink.mid", function (midi) {
+      Tone.Transport.bpm.value = 120;
+
+      var synth = new Tone.PolySynth(8).toMaster();
+
+      // pass in the note events from one of the tracks as the second argument to Tone.Part 
+      var midiPart = new Tone.Part(function (time, note) {
+        //use the events to play the synth
+        console.log("yyy");
+        synth.triggerAttackRelease(note.name, note.duration, time, note.velocity);
+
+      }, midi.tracks[0].notes).start();
+
+      // start the transport to hear the events
+      Tone.Transport.start();
+
+    })
   }
 
   constructor(private zone: NgZone){
-    Tone.Transport.bpm.value = 100;
-    this.loadSynths();
+
+
+
+
+    // Tone.Transport.bpm.value = 100;
+    // this.loadSynths();
   }
 
   loadMelodies(){
     this.melody1 = new Melody();
     this.melody1.notes = [
       { positionInScale: 0, startTime: "0:0:0", duration: "0:0:3" },
-      { positionInScale: 2, startTime: "0:0:3", duration: "0:0:3" },
-      { positionInScale: 3, startTime: "0:1:2", duration: "0:0:3" },
+      { positionInScale: 2, startTime: "0:0:3", duration: "0:0:1" },
+      { positionInScale: 3, startTime: "0:1:0", duration: "0:0:3" },
       { positionInScale: 2, startTime: "0:2:1", duration: "0:0:3" },
-      { positionInScale: 5, startTime: "0:3:0", duration: "0:0:2" },
+      { positionInScale: 5, startTime: "0:3:0", duration: "0:0:1" },
       { positionInScale: 3, startTime: "0:3:2", duration: "0:0:2" }
     ];
 
@@ -93,12 +116,12 @@ export class AppComponent implements AfterViewInit {
       }
       else if (this.pairTest % 3 == 0) {
         this.scheduleMelody(this.melody2.multiplyMelodyNotes(-1, this.gamme), 3, notePosition, this.synths.bass, time);
-        this.scheduleMelody(this.melody1.powerMelodyNotes(1, this.gamme), 5, notePosition, this.synths.treb, time);
+        this.scheduleMelody(this.melody1, 5, notePosition, this.synths.treb, time);
       }
       else if(this.pairTest % 2 == 0)
       {
         this.scheduleMelody(this.melody1, 4, notePosition, this.synths.treb, time);
-        this.scheduleMelody(this.melody2.powerMelodyNotes(1, this.gamme), 3, notePosition, this.synths.bass, time);
+        this.scheduleMelody(this.melody2, 3, notePosition, this.synths.bass, time);
       }
       else{
         this.scheduleMelody(this.melody2, 3, notePosition, this.synths.bass, time);
