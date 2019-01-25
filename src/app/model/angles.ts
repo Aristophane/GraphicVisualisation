@@ -21,6 +21,17 @@ export class Angles{
         {degreeValue: 337, magneticName: "NNO"}
     ];
 
+    public static eightAngles : Angle[] = [
+        {degreeValue: 0, magneticName: "N"},
+        {degreeValue: 45, magneticName: "NE"},
+        {degreeValue: 90, magneticName: "E"},
+        {degreeValue: 135, magneticName: "SE"},
+        {degreeValue: 180, magneticName: "S"},
+        {degreeValue: 225, magneticName: "SO"},
+        {degreeValue: 270, magneticName: "O"},
+        {degreeValue: 315, magneticName: "NO"}
+    ];
+
     /**
      * Transform any angle value in its base relative
      * @param angle in degree

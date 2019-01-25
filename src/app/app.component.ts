@@ -27,6 +27,7 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.loadMelodies();
     this.loadTransport();
+    
   }
 
   constructor(private zone: NgZone){
@@ -70,7 +71,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   updateAngle1() {
-    this.currentAngle1 = this.currentAngle1 + 10;
+    this.currentAngle1 = this.currentAngle1;
   }
 
   mute(){

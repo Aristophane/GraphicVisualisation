@@ -1,0 +1,39 @@
+<svg version="1.1" baseProfile="full" width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+    <!-- OUTER CIRCLES -->
+
+  <svg:circle id="circle1" [attr.cx]="center.x" [attr.cy]="center.y" r="145" fill="white" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  <svg:line *ngFor="let outerAngle of smallAngles" [attr.x1]="center.x" [attr.y1]="center.y - 140" [attr.x2]="center.x" [attr.y2]="center.y - 145" style="stroke:rgb(0, 0, 0); fill:white; stroke-width:1; stroke-linecap:round"
+  [attr.transform]="getTransform(outerAngle.degreeValue + movement)"/>
+  <svg:circle id="circle2" [attr.cx]="center.x" [attr.cy]="center.y" r="140" fill="white" stroke="black" stroke-width="1.2"></svg:circle>
+  <svg:line *ngFor="let outerAngle of mediumAngles" [attr.x1]="center.x" [attr.y1]="center.y - 137" [attr.x2]="center.x" [attr.y2]="center.y - 140" style="stroke:rgb(0, 0, 0); fill:white; stroke-width:1; stroke-linecap:round"
+  [attr.transform]="getTransform(outerAngle.degreeValue)"/>
+  <svg:circle id="circle3" [attr.cx]="center.x" [attr.cy]="center.y" r="137" fill="white" stroke="black" stroke-width="1.2"></svg:circle>
+
+  <!-- LINES -->
+
+  <svg:line *ngFor="let lineAngle of angles" [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - 130" style="stroke:rgb(0, 0, 0); fill:white; stroke-width:1; stroke-linecap:round"
+  [attr.transform]="getTransform(lineAngle.degreeValue)" />
+  <svg:line *ngFor="let lineAngle of angles" [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - 130" style="stroke:rgb(141, 141, 141); fill:white; stroke-width:1; stroke-linecap:round"
+  [attr.transform]="getTransform(lineAngle.degreeValue + 11.25)" />
+
+    <!-- TRIANGLES -->
+  <svg:polygon *ngFor="let blackAngle of blackTriangleAngles" [attr.points]="triangleRightPoints(100,20)" [attr.transform]="getTransform(blackAngle.degreeValue + 22.5)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
+  <svg:polygon *ngFor="let blackAngle of blackTriangleAngles" [attr.points]="triangleLeftPoints(100,20)" [attr.transform]="getTransform(blackAngle.degreeValue + 22.5)" style="fill:rgb(58, 58, 58);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
+
+  <svg:polygon *ngFor="let blackAngle of blackTriangleAngles" [attr.points]="triangleRightPoints(100,20)" [attr.transform]="getTransform(blackAngle.degreeValue)" style="fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
+  <svg:polygon *ngFor="let blackAngle of blackTriangleAngles" [attr.points]="triangleLeftPoints(100,20)" [attr.transform]="getTransform(blackAngle.degreeValue)" style="fill:rgb(0, 0, 0);stroke:rgb(0, 0, 0);stroke-width:1.2"></svg:polygon>
+
+  <!-- INNER CIRCLES -->
+  <svg:circle id="circle4" [attr.cx]="center.x" [attr.cy]="center.y" r="33" fill="white" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  <svg:circle id="circle5" [attr.cx]="center.x" [attr.cy]="center.y" r="24" style="fill:rgb(255, 255, 255); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  
+    <!-- ARROW -->
+    <svg:line [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - arrowSize" style="stroke:rgb(0, 117, 252); fill:rgb(255, 255, 255); stroke-width:1.8; stroke-linecap:round"
+    [attr.transform]="arrowAngle" />
+    <svg:polygon [attr.points]="arrowHead()" stroke="rgb(2, 26, 49)" stroke-width="1" fill="white" [attr.transform]="arrowAngle" />
+  
+  
+  <svg:circle id="circle6" [attr.cx]="center.x" [attr.cy]="center.y" r="15" style="fill:rgb(255, 255, 255); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  <svg:circle id="circle7" [attr.cx]="center.x" [attr.cy]="center.y" r="7" fill="black" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+
+</svg>
