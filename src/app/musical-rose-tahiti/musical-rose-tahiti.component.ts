@@ -26,7 +26,6 @@ export class MusicalRoseTahitiComponent implements OnInit, AfterViewInit, OnChan
   mediumAngles;
   arrowAngle: string;
   arrowSize: number;
-  movement = 0;
 
   constructor() {
     this.size = 320;

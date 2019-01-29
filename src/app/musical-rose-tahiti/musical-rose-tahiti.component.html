@@ -3,7 +3,7 @@
 
   <svg:circle id="circle1" [attr.cx]="center.x" [attr.cy]="center.y" r="145" fill="white" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
   <svg:line *ngFor="let outerAngle of smallAngles" [attr.x1]="center.x" [attr.y1]="center.y - 140" [attr.x2]="center.x" [attr.y2]="center.y - 145" style="stroke:rgb(0, 0, 0); fill:white; stroke-width:1; stroke-linecap:round"
-  [attr.transform]="getTransform(outerAngle.degreeValue + movement)"/>
+  [attr.transform]="getTransform(outerAngle.degreeValue)"/>
   <svg:circle id="circle2" [attr.cx]="center.x" [attr.cy]="center.y" r="140" fill="white" stroke="black" stroke-width="1.2"></svg:circle>
   <svg:line *ngFor="let outerAngle of mediumAngles" [attr.x1]="center.x" [attr.y1]="center.y - 137" [attr.x2]="center.x" [attr.y2]="center.y - 140" style="stroke:rgb(0, 0, 0); fill:white; stroke-width:1; stroke-linecap:round"
   [attr.transform]="getTransform(outerAngle.degreeValue)"/>
@@ -25,15 +25,15 @@
 
   <!-- INNER CIRCLES -->
   <svg:circle id="circle4" [attr.cx]="center.x" [attr.cy]="center.y" r="33" fill="white" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
-  <svg:circle id="circle5" [attr.cx]="center.x" [attr.cy]="center.y" r="24" style="fill:rgb(255, 255, 255); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  <svg:circle id="circle5" [attr.cx]="center.x" [attr.cy]="center.y" r="22" style="fill:rgb(0, 0, 0); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
   
     <!-- ARROW -->
-    <svg:line [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - arrowSize" style="stroke:rgb(0, 117, 252); fill:rgb(255, 255, 255); stroke-width:1.8; stroke-linecap:round"
+    <svg:line [attr.x1]="center.x" [attr.y1]="center.y" [attr.x2]="center.x" [attr.y2]="center.y - arrowSize" style="stroke:rgb(0, 0, 0); fill:rgb(255, 255, 255); stroke-width:1.8; stroke-linecap:round"
     [attr.transform]="arrowAngle" />
     <svg:polygon [attr.points]="arrowHead()" stroke="rgb(2, 26, 49)" stroke-width="1" fill="white" [attr.transform]="arrowAngle" />
   
   
-  <svg:circle id="circle6" [attr.cx]="center.x" [attr.cy]="center.y" r="15" style="fill:rgb(255, 255, 255); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
+  <svg:circle id="circle6" [attr.cx]="center.x" [attr.cy]="center.y" r="12" style="fill:rgb(255, 255, 255); stroke:rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
   <svg:circle id="circle7" [attr.cx]="center.x" [attr.cy]="center.y" r="7" fill="black" stroke="rgb(66, 66, 66)" stroke-width="1.2"></svg:circle>
 
 </svg>

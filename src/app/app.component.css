@@ -7,6 +7,45 @@ button:focus {
   outline: 0;
 }
 
+.flexContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+
+#citySearch input{
+    height: 2em;
+    background: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    text-align: center;
+    width: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 2em;
+}
+
+#citySearch input:focus{
+    background: rgba(0,0,0,0);
+    border: none;
+    outline: none;
+}
+
+#citySearch p{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+    color: rgb(252, 240, 225);
+    font-style: italic;
+    font-size: 1.5em;
+}
+
+#citySearch p:hover{
+    background: rgba(0,0,0,0);
+	color: #f1ffe4;
+}
+
+#musicalRoses{
+}
+
 #muteToggleButton.mute{
     background-image: url("../assets/mute.svg");
 }

@@ -1,3 +1,17 @@
+<div id="citySearch" class="flexContainer">
+    <div class="flexContainer">
+        <p>Origine du vent</p>
+    </div>
+    <div class="flexContainer">
+        <input type="text" autofocus/>
+    </div>
+</div>
+<div id="musicalRoses" class="flexContainer">
+    <div>
+            <musical-rose [baseAngle]="currentAngle1" [notes]="gamme"></musical-rose>
+    </div>
+    <div>
+            <musical-rose-tahiti [baseAngle]="currentAngle1" [notes]="gamme"></musical-rose-tahiti>
+    </div>
+</div>
 
-<musical-rose [baseAngle]="currentAngle1" [notes]="gamme"></musical-rose>
-<musical-rose-tahiti [baseAngle]="currentAngle1" [notes]="gamme"></musical-rose-tahiti>
