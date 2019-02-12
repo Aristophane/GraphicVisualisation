@@ -25,35 +25,13 @@ export class AppComponent implements AfterViewInit {
   pairTest: number = 0;
 
   ngAfterViewInit() {
-    // this.loadMelodies();
-    // this.loadTransport();
-
-    MidiConvert.load("../assets/pink.mid", function (midi) {
-      Tone.Transport.bpm.value = 120;
-
-      var synth = new Tone.PolySynth(8).toMaster();
-
-      // pass in the note events from one of the tracks as the second argument to Tone.Part 
-      var midiPart = new Tone.Part(function (time, note) {
-        //use the events to play the synth
-        console.log("yyy");
-        synth.triggerAttackRelease(note.name, note.duration, time, note.velocity);
-
-      }, midi.tracks[0].notes).start();
-
-      // start the transport to hear the events
-      Tone.Transport.start();
-
-    })
+    this.loadMelodies();
+    this.loadTransport();
   }
 
   constructor(private zone: NgZone){
-
-
-
-
-    // Tone.Transport.bpm.value = 100;
-    // this.loadSynths();
+    Tone.Transport.bpm.value = 100;
+    this.loadSynths();
   }
 
   loadMelodies(){
@@ -127,6 +105,8 @@ export class AppComponent implements AfterViewInit {
         this.scheduleMelody(this.melody2, 3, notePosition, this.synths.bass, time);
         this.scheduleMelody(this.melody1.invertMelodyOrder(), 5, notePosition, this.synths.treb, time);
       }
+
+      console.log("aga")
 
       //A chaque fin de mélodie on va changer l'angle
       Tone.Transport.schedule(() => {
